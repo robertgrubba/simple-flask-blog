@@ -20,7 +20,6 @@
 	{{post.title}}	</title>
 <link rel="profile" href="https://gmpg.org/xfn/11" />
 <link rel="stylesheet" type="text/css" media="all"  href="{{ url_for('static', filename='style.css') }}">
-<link rel="pingback" href="http://pgxc.pl/xmlrpc.php">
 <!--[if lt IE 9]>
 <script src="http://pgxc.pl/wp-content/themes/twentyeleven/js/html5.js?ver=3.7.0" type="text/javascript"></script>
 <![endif]-->
@@ -31,7 +30,7 @@
 	<meta property="og:locale" content="pl_PL" />
 	<meta property="og:type" content="article" />
 	<meta property="og:title" content="{{ post.title }} - PGXC.pl" />
-	<meta property="og:description" content="{{ post.content[0:52] }}..." />
+	<meta property="og:description" content="{{ short }}..." />
 	<meta property="og:url" content="http://pgxc.pl{{ request.path }}" />
 	<meta property="og:site_name" content="PGXC.pl" />
 	<meta property="article:published_time" content="{{ post.created }}+00:00" />
@@ -72,10 +71,9 @@ img.emoji {
 <link rel='stylesheet' id='cookie-consent-style-css'  href="{{ url_for('static',filename='uk-cookie-consent/style.5.5.3.css') }}" type='text/css' media='all' />
 <link rel='stylesheet' id='twentyeleven-block-style-css'  href="{{ url_for('static',filename='twentyeleven/blocks.20190102.css') }}" type='text/css' media='all' />
 	<script type='text/javascript' src="{{ url_for('static',filename='js/jquery/jquery.1.12.4-wp.js') }}" id='jquery-core-js'></script>
-	<link rel="wlwmanifest" type="application/wlwmanifest+xml" href="http://pgxc.pl/{{ url_for('static',filename='wlwmanifest.xml')}}" /> 
+	<link rel="wlwmanifest" type="application/wlwmanifest+xml" href="{{ url_for('static',filename='wlwmanifest.xml')}}" /> 
 <meta name="generator" content="Flask" />
 <link rel='shortlink' href='http://pgxc.pl/p/{{ post.id }}' />
-<link rel="alternate" type="application/json+oembed" href="http://pgxc.pl/wp-json/oembed/1.0/embed?url=http%3A%2F%2Fpgxc.pl%2F2020%2F10%2Fponadczasowy-paralotniowy-ranking-lotow-holowanych%2F" />
 <link rel="alternate" type="text/xml+oembed" href="http://pgxc.pl/wp-json/oembed/1.0/embed?url=http%3A%2F%2Fpgxc.pl%2F2020%2F10%2Fponadczasowy-paralotniowy-ranking-lotow-holowanych%2F&#038;format=xml" />
 
 		<!-- GA Google Analytics @ https://m0n.co/ga -->
@@ -131,7 +129,7 @@ img.emoji {
 			</hgroup>
 
 						<a href="http://pgxc.pl/">
-									<img src="http://pgxc.pl/wp-content/uploads/2016/01/cropped-header_pgxc.jpg" width="1000" height="288" alt="PGXC.pl" />
+							<img src="{{ url_for('static',filename='cropped-header_pgxc.jpg') }}" width="1000" height="288" alt="PGXC.pl" />
 								</a>
 			
 									<form method="get" id="searchform" action="http://pgxc.pl/">
@@ -168,7 +166,7 @@ img.emoji {
 		<h1 class="entry-title">{{ post.title }}</h1>
 
 				<div class="entry-meta">
-					<span class="sep">Opublikowany </span><a href="http://pgxc.pl/{{ request.path }}" title="11:42 am" rel="bookmark"><time class="entry-date" datetime="{{ post.modified }}+00:00">{{ date }}</time></a><span class="by-author"> <span class="sep"> przez </span> <span class="author vcard"><a class="url fn n" href="http://pgxc.pl/author/rgrubba/" title="Zobacz wszystkie wpisy, których autorem jest rgrubba" rel="author">rgrubba</a></span></span>		</div><!-- .entry-meta -->
+					<span class="sep">Opublikowany </span><a href="http://pgxc.pl{{ request.path }}" title="11:42 am" rel="bookmark"><time class="entry-date" datetime="{{ post.modified }}+00:00">{{ date }}</time></a><span class="by-author"> <span class="sep"> przez </span> <span class="author vcard"><a class="url fn n" href="http://pgxc.pl/author/rgrubba/" title="Zobacz wszystkie wpisy, których autorem jest rgrubba" rel="author">rgrubba</a></span></span>		</div><!-- .entry-meta -->
 			</header><!-- .entry-header -->
 
 	      {% block content %}{% endblock %}
@@ -252,9 +250,6 @@ var ctcc_vars = {"expiry":"30","method":"1","version":"1"};
 						})(form);
 					}
 				};
-			</script>
-						<script src="https://www.google.com/recaptcha/api.js?onload=anr_onloadCallback&#038;render=explicit&#038;hl=pl"
-				async defer>
 			</script>
 			
 </body>
