@@ -27,17 +27,15 @@
 
 	<!-- This site is optimized with the Yoast SEO plugin v15.3 - https://yoast.com/wordpress/plugins/seo/ -->
 	<meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
-	<link rel="canonical" href="http://pgxc.pl/2020/10/ponadczasowy-paralotniowy-ranking-lotow-holowanych/" />
+	<link rel="canonical" href="http://pgxc.pl{{ request.path }}" />
 	<meta property="og:locale" content="pl_PL" />
 	<meta property="og:type" content="article" />
 	<meta property="og:title" content="{{ post.title }} - PGXC.pl" />
-	<meta property="og:description" content="Mamy już rankingi best of the best z klifów nadmorskich, jak i nadwiślanych. Uznałem, że czas najwyższy na taki sam ranking lotów z polskich startowisk holowanych. Zasady Ponadczasowego Rankingu Lotów Holowanych nie ma ram czasowych (można wgrywać stare loty), wgrywane &hellip; Czytaj dalej &rarr;" />
-	<meta property="og:url" content="http://pgxc.pl/2020/10/ponadczasowy-paralotniowy-ranking-lotow-holowanych/" />
+	<meta property="og:description" content="{{ post.content[0:52] }}..." />
+	<meta property="og:url" content="http://pgxc.pl{{ request.path }}" />
 	<meta property="og:site_name" content="PGXC.pl" />
-	<meta property="article:published_time" content="2020-10-29T11:42:47+00:00" />
-	<meta property="article:modified_time" content="2020-10-29T11:51:12+00:00" />
-	<meta property="og:image" content="http://pgxc.pl/wp-content/uploads/2020/10/polskie_startowiska_paralotniowe_holowane.png" />
-	<meta name="twitter:card" content="summary_large_image" />
+	<meta property="article:published_time" content="{{ post.created }}+00:00" />
+	<meta property="article:modified_time" content="{{ post.modified }}+00:00" />
 	<meta name="twitter:label1" content="Written by">
 	<meta name="twitter:data1" content="rgrubba">
 	<meta name="twitter:label2" content="Est. reading time">
@@ -74,10 +72,9 @@ img.emoji {
 <link rel='stylesheet' id='cookie-consent-style-css'  href="{{ url_for('static',filename='uk-cookie-consent/style.5.5.3.css') }}" type='text/css' media='all' />
 <link rel='stylesheet' id='twentyeleven-block-style-css'  href="{{ url_for('static',filename='twentyeleven/blocks.20190102.css') }}" type='text/css' media='all' />
 	<script type='text/javascript' src="{{ url_for('static',filename='js/jquery/jquery.1.12.4-wp.js') }}" id='jquery-core-js'></script>
-<link rel="https://api.w.org/" href="http://pgxc.pl/wp-json/" /><link rel="alternate" type="application/json" href="http://pgxc.pl/wp-json/wp/v2/posts/507" /><link rel="EditURI" type="application/rsd+xml" title="RSD" href="http://pgxc.pl/xmlrpc.php?rsd" />
-<link rel="wlwmanifest" type="application/wlwmanifest+xml" href="http://pgxc.pl/wp-includes/wlwmanifest.xml" /> 
+	<link rel="wlwmanifest" type="application/wlwmanifest+xml" href="http://pgxc.pl/{{ url_for('static',filename='wlwmanifest.xml')}}" /> 
 <meta name="generator" content="Flask" />
-<link rel='shortlink' href='http://pgxc.pl/?p=507' />
+<link rel='shortlink' href='http://pgxc.pl/p/{{ post.id }}' />
 <link rel="alternate" type="application/json+oembed" href="http://pgxc.pl/wp-json/oembed/1.0/embed?url=http%3A%2F%2Fpgxc.pl%2F2020%2F10%2Fponadczasowy-paralotniowy-ranking-lotow-holowanych%2F" />
 <link rel="alternate" type="text/xml+oembed" href="http://pgxc.pl/wp-json/oembed/1.0/embed?url=http%3A%2F%2Fpgxc.pl%2F2020%2F10%2Fponadczasowy-paralotniowy-ranking-lotow-holowanych%2F&#038;format=xml" />
 
@@ -125,7 +122,7 @@ img.emoji {
 					min-height: 30px;
 				}</style><style type="text/css">.recentcomments a{display:inline !important;padding:0 !important;margin:0 !important;}</style></head>
 
-<body class="post-template-default single single-post postid-507 single-format-standard wp-embed-responsive single-author singular two-column right-sidebar">
+				<body class="post-template-default single single-post postid-{{ post.id }} single-format-standard wp-embed-responsive single-author singular two-column right-sidebar">
 <div class="skip-link"><a class="assistive-text" href="#content">Przeskocz do tekstu</a></div><div id="page" class="hfeed">
 	<header id="branding" role="banner">
 			<hgroup>
@@ -166,12 +163,12 @@ img.emoji {
 					</nav><!-- #nav-single -->
 
 					
-<article id="post-507" class="post-507 post type-post status-publish format-standard hentry category-aktualnosci category-leonardoxc tag-best-of-the-best tag-loty-holowane tag-ranking">
+					<article id="post-{{ post.id }}" class="post-{{ post.id }} post type-post status-publish format-standard hentry category-aktualnosci category-leonardoxc tag-best-of-the-best tag-loty-holowane tag-ranking">
 	<header class="entry-header">
 		<h1 class="entry-title">{{ post.title }}</h1>
 
 				<div class="entry-meta">
-			<span class="sep">Opublikowany </span><a href="http://pgxc.pl/2020/10/ponadczasowy-paralotniowy-ranking-lotow-holowanych/" title="11:42 am" rel="bookmark"><time class="entry-date" datetime="2020-10-29T11:42:47+00:00">29 października, 2020</time></a><span class="by-author"> <span class="sep"> przez </span> <span class="author vcard"><a class="url fn n" href="http://pgxc.pl/author/rgrubba/" title="Zobacz wszystkie wpisy, których autorem jest rgrubba" rel="author">rgrubba</a></span></span>		</div><!-- .entry-meta -->
+					<span class="sep">Opublikowany </span><a href="http://pgxc.pl/{{ request.path }}" title="11:42 am" rel="bookmark"><time class="entry-date" datetime="{{ post.modified }}+00:00">29 października, 2020</time></a><span class="by-author"> <span class="sep"> przez </span> <span class="author vcard"><a class="url fn n" href="http://pgxc.pl/author/rgrubba/" title="Zobacz wszystkie wpisy, których autorem jest rgrubba" rel="author">rgrubba</a></span></span>		</div><!-- .entry-meta -->
 			</header><!-- .entry-header -->
 
 	      {% block content %}{% endblock %}
@@ -180,7 +177,7 @@ img.emoji {
 		Kategorie: <a href="http://pgxc.pl/category/aktualnosci/" rel="category tag">Aktualności</a>, <a href="http://pgxc.pl/category/leonardoxc/" rel="category tag">LeonardoXC</a>. Tagi: <a href="http://pgxc.pl/tag/best-of-the-best/" rel="tag">best of the best</a>, <a href="http://pgxc.pl/tag/loty-holowane/" rel="tag">loty holowane</a>, <a href="http://pgxc.pl/tag/ranking/" rel="tag">ranking</a>. Autor: <a href="http://pgxc.pl/author/rgrubba/">rgrubba</a>. Dodaj zakładkę do <a href="http://pgxc.pl/2020/10/ponadczasowy-paralotniowy-ranking-lotow-holowanych/" title="Bezpośredni odnośnik do &#8222;Ponadczasowy Paralotniowy Ranking Lotów Holowanych&#8221;" rel="bookmark">bezpośredniego odnośnika</a>.
 		
 			</footer><!-- .entry-meta -->
-</article><!-- #post-507 -->
+			</article><!-- #post-{{ post.id }} -->
 
 						<div id="comments">
 	
