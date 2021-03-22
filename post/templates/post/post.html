@@ -1,0 +1,9 @@
+{% extends 'post/base.html' %}
+
+{% block header %}
+  <h1>TEST HEADER</h1>
+{% endblock %}
+
+{% block content %}
+{{ post.content|safe }}
+{% endblock %}
