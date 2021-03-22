@@ -1,6 +1,7 @@
 from flask import Blueprint, render_template
 from models import Page
 from sqlalchemy import extract
+import datetime
 
 post_bp = Blueprint('core_bp',__name__,template_folder='templates')
 
@@ -12,6 +13,14 @@ def index():
 def post(year,month,slug):
     requested_post = Page.query.filter(extract('year',Page.created)==year,extract('month',Page.created)==month).filter_by(slug=slug).first_or_404()
     if post:
-        return render_template('post/post.html',post=requested_post)
+        return render_template('post/post.html',post=requested_post,date=datetime.datetime.strftime(requested_post.created, "%d %B %Y"))
+    else:
+        return render_template('index.html')
+
+@post_bp.route('/p/<int:postid>/')
+def post_by_id(postid):
+    requested_post = Page.query.filter_by(id=postid).first_or_404()
+    if post:
+        return render_template('post/post.html',post=requested_post,date=datetime.datetime.strftime(requested_post.created, "%d %B %Y"))
     else:
         return render_template('index.html')
