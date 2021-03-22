@@ -52,9 +52,20 @@ for category in categories:
         new_category = Category(name=category)
         db.session.add(new_category)
 
-#new_page = Page(slug=slug, title=title.text, content=content, created=datetime.datetime.strptime(dates[0],'%Y-%m-%dT%H:%M:%S+00:00'))
-#new_page = Page(slug=slug, title=title.text, content=content)
-#db.session.add(new_page)
+#page_date = datetime.datetime.strptime(re.sub(r'+00:00','',dates[0],1),'%Y-%m-%dT%H:%M:%S')
+page_date = datetime.datetime.strptime(dates[0][0:19],'%Y-%m-%dT%H:%M:%S')
+
+exists = Page.query.filter_by(title=title.text,created=page_date).first()
+if not exists:
+    new_page = Page(slug=str(slug), title=str(title.text), content=str(content), created=page_date)
+    db.session.add(new_page)
+else:
+        for category in categories:
+            exists.categories.append(Category.query.filter_by(name=category).first())
+
+        for tag in tags:
+            exists.tags.append(Tag.query.filter_by(name=tag).first())
+
 db.session.commit()
 
 
