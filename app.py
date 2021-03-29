@@ -11,5 +11,7 @@ db = SQLAlchemy(app)
 from models import Page, Tag, Category
 migrate = Migrate(app,db)
 
-from core.core import core_bp
+from core.views import core_bp
 app.register_blueprint(core_bp)
+from post.views import post_bp
+app.register_blueprint(post_bp)
