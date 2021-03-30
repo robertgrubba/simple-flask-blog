@@ -117,7 +117,7 @@ img.emoji {
 <div class="skip-link"><a class="assistive-text" href="#content">Przeskocz do tekstu</a></div><div class="skip-link"><a class="assistive-text" href="#secondary">Przeskocz do widgetów</a></div><div id="page" class="hfeed">
 	<header id="branding" role="banner">
 			<hgroup>
-				<h1 id="site-title"><span><a href="http://pgxc.pl/" rel="home">PGXC.pl</a></span></h1>
+				<h1 id="site-title"><span><a href="{{ url_for('core_bp.index') }}" rel="home">PGXC.pl</a></span></h1>
 				<h2 id="site-description">ponieważ latanie uzależnia&#8230;</h2>
 			</hgroup>
 
@@ -160,61 +160,17 @@ img.emoji {
 		<div id="secondary" class="widget-area" role="complementary">
 			<aside id="text-2" class="widget widget_text">			<div class="textwidget">Polub PGXC.pl na <a target="_blank" href="https://www.facebook.com/pgxcpl/" rel="noopener noreferrer">facebooku</a>.</div>
 		</aside>
-		<aside id="recent-posts-2" class="widget widget_recent_entries">
-		<h3 class="widget-title">Najnowsze wpisy</h3>
-		<ul>
-											<li>
-					<a href="http://pgxc.pl/2020/10/ponadczasowy-paralotniowy-ranking-lotow-holowanych/">Ponadczasowy Paralotniowy Ranking Lotów Holowanych</a>
-									</li>
-											<li>
-					<a href="http://pgxc.pl/2020/10/ranking-klifow-nadwislanych-sezonowy/">Ranking Klifów Nadwiślanych &#8211; Sezonowy</a>
-									</li>
-											<li>
-					<a href="http://pgxc.pl/2020/10/podsumowanie-tabeli-sezonu-2020/">Podsumowanie Tabeli Sezonu 2020</a>
-									</li>
-											<li>
-					<a href="http://pgxc.pl/2020/09/przerwa-techniczna/">Przerwa techniczna</a>
-									</li>
-											<li>
-					<a href="http://pgxc.pl/2020/05/zmiany-na-stronie-gownej/">Zmiany na stronie gównej</a>
-									</li>
-					</ul>
+<aside id="recent-posts-2" class="widget widget_recent_entries">
+	{% block recent_posts %}
+	{% endblock %}
+</aside>
 
-		</aside><aside id="recent-comments-2" class="widget widget_recent_comments"><h3 class="widget-title">Najnowsze komentarze</h3><ul id="recentcomments"><li class="recentcomments"><span class="comment-author-link">isiu</span> o <a href="http://pgxc.pl/2020/10/podsumowanie-tabeli-sezonu-2020/#comment-6043">Podsumowanie Tabeli Sezonu 2020</a></li><li class="recentcomments"><span class="comment-author-link">rgrubba</span> o <a href="http://pgxc.pl/2019/11/srk-aktualizacja-regulaminu/#comment-5976">SRK &#8211; aktualizacja regulaminu</a></li><li class="recentcomments"><span class="comment-author-link"><a href='http://www.klif.gd.pl' rel='external nofollow ugc' class='url'>KLIF</a></span> o <a href="http://pgxc.pl/2019/11/srk-aktualizacja-regulaminu/#comment-5975">SRK &#8211; aktualizacja regulaminu</a></li><li class="recentcomments"><span class="comment-author-link">Karol</span> o <a href="http://pgxc.pl/2018/09/przejscie-z-xcc-na-leonardo/#comment-5944">Przejście z XCC na Leonardo</a></li><li class="recentcomments"><span class="comment-author-link">rgrubba</span> o <a href="http://pgxc.pl/2018/09/przejscie-z-xcc-na-leonardo/#comment-5941">Przejście z XCC na Leonardo</a></li></ul></aside><aside id="archives-2" class="widget widget_archive"><h3 class="widget-title">Archiwa</h3>
-			<ul>
-					<li><a href='http://pgxc.pl/2020/10/'>Październik 2020</a></li>
-	<li><a href='http://pgxc.pl/2020/09/'>Wrzesień 2020</a></li>
-	<li><a href='http://pgxc.pl/2020/05/'>Maj 2020</a></li>
-	<li><a href='http://pgxc.pl/2020/04/'>Kwiecień 2020</a></li>
-	<li><a href='http://pgxc.pl/2020/02/'>Luty 2020</a></li>
-	<li><a href='http://pgxc.pl/2020/01/'>Styczeń 2020</a></li>
-	<li><a href='http://pgxc.pl/2019/12/'>Grudzień 2019</a></li>
-	<li><a href='http://pgxc.pl/2019/11/'>Listopad 2019</a></li>
-	<li><a href='http://pgxc.pl/2019/10/'>Październik 2019</a></li>
-	<li><a href='http://pgxc.pl/2019/09/'>Wrzesień 2019</a></li>
-	<li><a href='http://pgxc.pl/2019/07/'>Lipiec 2019</a></li>
-	<li><a href='http://pgxc.pl/2019/06/'>Czerwiec 2019</a></li>
-	<li><a href='http://pgxc.pl/2019/05/'>Maj 2019</a></li>
-	<li><a href='http://pgxc.pl/2019/04/'>Kwiecień 2019</a></li>
-	<li><a href='http://pgxc.pl/2019/02/'>Luty 2019</a></li>
-	<li><a href='http://pgxc.pl/2018/12/'>Grudzień 2018</a></li>
-	<li><a href='http://pgxc.pl/2018/10/'>Październik 2018</a></li>
-	<li><a href='http://pgxc.pl/2018/09/'>Wrzesień 2018</a></li>
-	<li><a href='http://pgxc.pl/2018/08/'>Sierpień 2018</a></li>
-	<li><a href='http://pgxc.pl/2018/07/'>Lipiec 2018</a></li>
-	<li><a href='http://pgxc.pl/2018/06/'>Czerwiec 2018</a></li>
-	<li><a href='http://pgxc.pl/2018/05/'>Maj 2018</a></li>
-	<li><a href='http://pgxc.pl/2018/04/'>Kwiecień 2018</a></li>
-	<li><a href='http://pgxc.pl/2018/03/'>Marzec 2018</a></li>
-	<li><a href='http://pgxc.pl/2018/02/'>Luty 2018</a></li>
-	<li><a href='http://pgxc.pl/2018/01/'>Styczeń 2018</a></li>
-	<li><a href='http://pgxc.pl/2017/03/'>Marzec 2017</a></li>
-	<li><a href='http://pgxc.pl/2017/02/'>Luty 2017</a></li>
-	<li><a href='http://pgxc.pl/2017/01/'>Styczeń 2017</a></li>
-	<li><a href='http://pgxc.pl/2016/01/'>Styczeń 2016</a></li>
-			</ul>
+<aside id="archives-2" class="widget widget_archive">
+	{% block archives %}
+	{% endblock %}
+</aside>
 
-			</aside><aside id="categories-2" class="widget widget_categories"><h3 class="widget-title">Kategorie</h3>
+<aside id="categories-2" class="widget widget_categories"><h3 class="widget-title">Kategorie</h3>
 			<ul>
 					<li class="cat-item cat-item-2"><a href="http://pgxc.pl/category/aktualnosci/">Aktualności</a>
 </li>

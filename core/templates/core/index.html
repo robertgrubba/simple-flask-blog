@@ -10,7 +10,7 @@
 			<h1 class="entry-title"><a href="{{ url_for('core_bp.post',year=post.created.year,month=post.created.month,slug=post.slug) }}" rel="bookmark">{{ post.title }}</a></h1>
 			
 						<div class="entry-meta">
-							<span class="sep">Opublikowany </span><a href="{{ url_for('core_bp.post',year=post.created.year,month=post.created.month,slug=post.slug) }}" title="11:42 am" rel="bookmark"><time class="entry-date" datetime="{{ post.created }}+00:00">29 października, 2020</time></a><span class="by-author"> <span class="sep"> przez </span> <span class="author vcard"><a class="url fn n" href="http://pgxc.pl/author/rgrubba/" title="Zobacz wszystkie wpisy, których autorem jest rgrubba" rel="author">rgrubba</a></span></span>			</div><!-- .entry-meta -->
+							<span class="sep">Opublikowany </span><a href="{{ url_for('core_bp.post',year=post.created.year,month=post.created.month,slug=post.slug) }}" title="11:42 am" rel="bookmark"><time class="entry-date" datetime="{{ post.created }}+00:00">{{ post.created.day }} {{ post.created.month | month_name }}, {{ post.created.year }}</time></a><span class="by-author"> <span class="sep"> przez </span> <span class="author vcard"><a class="url fn n" href="http://pgxc.pl/author/rgrubba/" title="Zobacz wszystkie wpisy, których autorem jest rgrubba" rel="author">rgrubba</a></span></span>			</div><!-- .entry-meta -->
 			
 						<div class="comments-link">
 							<a href="{{ url_for('core_bp.post',year=post.created.year,month=post.created.month,slug=post.slug) }}#respond"><span class="leave-reply">Odpowiedz</span></a>			</div>
@@ -41,4 +41,23 @@
 	{% if posts.has_prev %} <div class="nav-previous"><a href="{{ url_for('core_bp.index',page=posts.prev_num) }}" ><span class="meta-nav">&larr;</span> Nowsze wpisy</a></div> {% endif %}
 	{% if posts.has_next %} <div class="nav-next"> <a href="{{ url_for('core_bp.index',page=posts.next_num) }}" >Starsze wpisy <span class="meta-nav">&rarr;</span></a> </div> {% endif %}
 </nav><!-- #nav-above -->
+{% endblock %}
+
+{% block recent_posts %}
+<h3 class="widget-title">Najnowsze wpisy</h3>
+<ul>
+	{% for post in recent_posts %}
+		<li><a href="{{ url_for('core_bp.post',year=post.created.year,month=post.created.month,slug=post.slug) }}">{{ post.title }}</a></li>
+	{% endfor %}
+</ul>
+{% endblock %}
+
+{% block archives %}
+<h3 class="widget-title">Archiwa</h3>
+			<ul>
+	{% for post in archives %}
+	<li><a href='{{ url_for('core_bp.month',year=post.created.year,month=post.created.month) }}'>{{ post.created.month |month_name }} / {{ post.created.year }}</a></li>
+	{% endfor %}
+	</ul>
+
 {% endblock %}

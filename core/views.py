@@ -11,7 +11,9 @@ core_bp = Blueprint('core_bp',__name__,template_folder='templates')
 def index(page=1):
     per_page=5
     posts = Page.query.order_by(Page.created.desc()).paginate(page,per_page,error_out=False)
-    return render_template('core/index.html',posts=posts)
+    recent_posts = Page.query.order_by(Page.created.desc()).limit(5)
+    archives = Page.query.group_by(extract('year',Page.created),extract('month',Page.created)).order_by(Page.created.desc()).all()
+    return render_template('core/index.html',posts=posts,recent_posts=recent_posts,archives=archives)
 
 @core_bp.route('/<int:year>/<int:month>/<string:slug>/')
 def post(year,month,slug):
