@@ -61,15 +61,14 @@ img.emoji {
 	padding: 0 !important;
 }
 </style>
-	<link rel='stylesheet' id='wp-block-library-css'  href='http://pgxc.pl/wp-includes/css/dist/block-library/style.min.css?ver=5.5.3' type='text/css' media='all' />
-<link rel='stylesheet' id='wp-block-library-theme-css'  href='http://pgxc.pl/wp-includes/css/dist/block-library/theme.min.css?ver=5.5.3' type='text/css' media='all' />
-<link rel='stylesheet' id='cookie-consent-style-css'  href='http://pgxc.pl/wp-content/plugins/uk-cookie-consent/assets/css/style.css?ver=5.5.3' type='text/css' media='all' />
-<link rel='stylesheet' id='twentyeleven-block-style-css'  href='http://pgxc.pl/wp-content/themes/twentyeleven/blocks.css?ver=20190102' type='text/css' media='all' />
-<script type='text/javascript' src='http://pgxc.pl/wp-includes/js/jquery/jquery.js?ver=1.12.4-wp' id='jquery-core-js'></script>
-<link rel="https://api.w.org/" href="http://pgxc.pl/wp-json/" /><link rel="EditURI" type="application/rsd+xml" title="RSD" href="http://pgxc.pl/xmlrpc.php?rsd" />
-<link rel="wlwmanifest" type="application/wlwmanifest+xml" href="http://pgxc.pl/wp-includes/wlwmanifest.xml" /> 
-<meta name="generator" content="WordPress 5.5.3" />
-
+<link rel="stylesheet" type="text/css" media="all"  href="{{ url_for('static', filename='style.css') }}">
+<link rel='stylesheet' id='wp-block-library-css'  href="{{ url_for('static',filename='style.min.5.5.3.css') }}" type='text/css' media='all' />
+<link rel='stylesheet' id='wp-block-library-theme-css'  href="{{ url_for('static',filename='theme.min.5.5.3.css') }}" type='text/css' media='all' />
+<link rel='stylesheet' id='cookie-consent-style-css'  href="{{ url_for('static',filename='uk-cookie-consent/style.5.5.3.css') }}" type='text/css' media='all' />
+<link rel='stylesheet' id='twentyeleven-block-style-css'  href="{{ url_for('static',filename='twentyeleven/blocks.20190102.css') }}" type='text/css' media='all' />
+	<script type='text/javascript' src="{{ url_for('static',filename='js/jquery/jquery.1.12.4-wp.js') }}" id='jquery-core-js'></script>
+	<link rel="wlwmanifest" type="application/wlwmanifest+xml" href="{{ url_for('static',filename='wlwmanifest.xml')}}" /> 
+<meta name="generator" content="Flask" />
 		<!-- GA Google Analytics @ https://m0n.co/ga -->
 		<script>
 			(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
