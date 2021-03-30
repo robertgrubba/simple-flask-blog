@@ -43,13 +43,15 @@ print(dates)
 for tag in tags:
     exists = Tag.query.filter_by(name=tag).first()
     if not exists:
-        new_tag = Tag(name=tag)
+        slug = tag.replace(' ','-').lower()
+        new_tag = Tag(name=tag,slug=slug)
         db.session.add(new_tag)
 
 for category in categories:
     exists = Category.query.filter_by(name=category).first()
     if not exists:
-        new_category = Category(name=category)
+        slug = category.replace(' ','-').lower()
+        new_category = Category(name=category,slug=slug)
         db.session.add(new_category)
 
 #page_date = datetime.datetime.strptime(re.sub(r'+00:00','',dates[0],1),'%Y-%m-%dT%H:%M:%S')

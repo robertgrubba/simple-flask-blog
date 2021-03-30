@@ -1,5 +1,5 @@
 from flask import Blueprint, render_template
-from models import Page,Category
+from models import Page,Category,Tag
 from sqlalchemy import extract
 from bs4 import BeautifulSoup
 import datetime
@@ -20,10 +20,19 @@ def index(page=1):
 @core_bp.route('/category/<string:cat>/<int:page>')
 def category(cat,page=1):
     per_page=5
-    posts = Page.query.join(Category.pages).filter(Category.name==cat).paginate(page,per_page,error_out=False)
+    posts = Page.query.join(Category.pages).filter(Category.slug==cat.replace(' ','-').lower()).paginate(page,per_page,error_out=False)
     recent_posts = Page.query.order_by(Page.created.desc()).limit(5)
     archives = Page.query.group_by(extract('year',Page.created),extract('month',Page.created)).order_by(Page.created.desc()).all()
     return render_template('core/category.html',posts=posts,recent_posts=recent_posts,archives=archives,category=cat)
+
+@core_bp.route('/tag/<string:tag>/')
+@core_bp.route('/tag/<string:tag>/<int:page>')
+def tag(tag,page=1):
+    per_page=5
+    posts = Page.query.join(Tag.pages).filter(Tag.slug==tag.replace(' ','-').lower()).paginate(page,per_page,error_out=False)
+    recent_posts = Page.query.order_by(Page.created.desc()).limit(5)
+    archives = Page.query.group_by(extract('year',Page.created),extract('month',Page.created)).order_by(Page.created.desc()).all()
+    return render_template('core/tag.html',posts=posts,recent_posts=recent_posts,archives=archives,tag=tag)
 
 @core_bp.route('/<int:year>/<int:month>/<string:slug>/')
 def post(year,month,slug):
