@@ -1,5 +1,5 @@
 from flask import Blueprint, render_template
-from models import Page
+from models import Page,Category
 from sqlalchemy import extract
 from bs4 import BeautifulSoup
 import datetime
@@ -13,7 +13,15 @@ def index(page=1):
     posts = Page.query.order_by(Page.created.desc()).paginate(page,per_page,error_out=False)
     recent_posts = Page.query.order_by(Page.created.desc()).limit(5)
     archives = Page.query.group_by(extract('year',Page.created),extract('month',Page.created)).order_by(Page.created.desc()).all()
-    return render_template('core/index.html',posts=posts,recent_posts=recent_posts,archives=archives)
+    referer = "index"
+    return render_template('core/index.html',posts=posts,recent_posts=recent_posts,archives=archives, ref=referer)
+
+@core_bp.route('/category/<string:cat>/')
+def category(cat):
+    posts = Page.query.join(Category.pages).filter(Category.name==cat).all()
+    recent_posts = Page.query.order_by(Page.created.desc()).limit(5)
+    archives = Page.query.group_by(extract('year',Page.created),extract('month',Page.created)).order_by(Page.created.desc()).all()
+    return render_template('core/category.html',posts=posts,recent_posts=recent_posts,archives=archives)
 
 @core_bp.route('/<int:year>/<int:month>/<string:slug>/')
 def post(year,month,slug):
