@@ -38,8 +38,14 @@
 
 <nav id="nav-below">
 	<h3 class="assistive-text">Zobacz wpisy</h3>
-	{% if posts.has_prev %} <div class="nav-previous"><a href="{{ url_for('core_bp.index',page=posts.prev_num) }}" ><span class="meta-nav">&larr;</span> Nowsze wpisy</a></div> {% endif %}
-	{% if posts.has_next %} <div class="nav-next"> <a href="{{ url_for('core_bp.index',page=posts.next_num) }}" >Starsze wpisy <span class="meta-nav">&rarr;</span></a> </div> {% endif %}
+	{% if ref=="index" %}
+		{% if posts.has_prev %} <div class="nav-previous"><a href="{{ url_for('core_bp.index',page=posts.prev_num) }}" ><span class="meta-nav">&larr;</span> Nowsze wpisy</a></div> {% endif %}
+		{% if posts.has_next %} <div class="nav-next"> <a href="{{ url_for('core_bp.index',page=posts.next_num) }}" >Starsze wpisy <span class="meta-nav">&rarr;</span></a> </div> {% endif %}
+	{% endif %}
+	{% if ref=="category" %}
+		{% if posts.has_prev %} <div class="nav-previous"><a href="{{ url_for('core_bp.category',page=posts.prev_num) }}" ><span class="meta-nav">&larr;</span> Nowsze wpisy</a></div> {% endif %}
+		{% if posts.has_next %} <div class="nav-next"> <a href="{{ url_for('core_bp.category',page=posts.next_num) }}" >Starsze wpisy <span class="meta-nav">&rarr;</span></a> </div> {% endif %}
+	{% endif %}
 </nav><!-- #nav-above -->
 {% endblock %}
 
@@ -59,5 +65,24 @@
 	<li><a href='{{ url_for('core_bp.month',year=post.created.year,month=post.created.month) }}'>{{ post.created.month |month_name }} / {{ post.created.year }}</a></li>
 	{% endfor %}
 	</ul>
+
+{% endblock %}
+
+{% block categories %}
+<ul>
+	{% for category in categories %}
+		<li class="cat-item cat-item-2"><a href="{{ url_for('core_bp.category',slug=category.slug) }}"> {{ category.name }}</a>
+	{% endfor %}
+</ul>
+
+			</aside><aside id="meta-2" class="widget widget_meta"><h3 class="widget-title">Meta</h3>
+		<ul>
+						<li><a rel="nofollow" href="http://pgxc.pl/wp-login.php">Zaloguj się</a></li>
+			<li><a href="http://pgxc.pl/feed/">Kanał wpisów</a></li>
+			<li><a href="http://pgxc.pl/comments/feed/">Kanał komentarzy</a></li>
+
+			<li><a href="https://pl.wordpress.org/">WordPress.org</a></li>
+		</ul>
+
 
 {% endblock %}

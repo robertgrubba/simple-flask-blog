@@ -38,8 +38,8 @@
 
 <nav id="nav-below">
 	<h3 class="assistive-text">Zobacz wpisy</h3>
-		{% if posts.has_prev %} <div class="nav-previous"><a href="{{ url_for('core_bp.category',page=posts.prev_num,slug=slug) }}" ><span class="meta-nav">&larr;</span> Nowsze wpisy</a></div> {% endif %}
-		{% if posts.has_next %} <div class="nav-next"> <a href="{{ url_for('core_bp.category',page=posts.next_num,slug=slug) }}" >Starsze wpisy <span class="meta-nav">&rarr;</span></a> </div> {% endif %}
+		{% if posts.has_prev %} <div class="nav-previous"><a href="{{ url_for('core_bp.tag',page=posts.prev_num,tag=tag) }}" ><span class="meta-nav">&larr;</span> Nowsze wpisy</a></div> {% endif %}
+		{% if posts.has_next %} <div class="nav-next"> <a href="{{ url_for('core_bp.tag',page=posts.next_num,tag=tag) }}" >Starsze wpisy <span class="meta-nav">&rarr;</span></a> </div> {% endif %}
 </nav><!-- #nav-above -->
 {% endblock %}
 
@@ -62,6 +62,7 @@
 
 {% endblock %}
 
+
 {% block categories %}
 <ul>
         {% for category in categories %}
@@ -80,5 +81,4 @@
 
 
 {% endblock %}
-
 
