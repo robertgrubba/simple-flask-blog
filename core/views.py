@@ -21,6 +21,15 @@ def post(year,month,slug):
     else:
         return render_template('index.html')
 
+@core_bp.route('/<int:year>/<int:month>/')
+def month(year,month,page=1):
+    per_page=5
+    posts = Page.query.filter(extract('year',Page.created)==year,extract('month',Page.created)==month).order_by(Page.created.desc()).paginate(page,per_page,error_out=False)
+    if posts:
+        return render_template('core/month.html',posts=posts,year=year,month=month)
+    else:
+        return render_template('index.html')
+
 @core_bp.route('/p/<int:postid>/')
 def post_by_id(postid):
     requested_post = Page.query.filter_by(id=postid).first_or_404()

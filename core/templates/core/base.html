@@ -252,10 +252,9 @@ img.emoji {
 	<footer id="colophon" role="contentinfo">
 
 			
-
 			<div id="site-generator">
-												<a href="https://pl.wordpress.org/" class="imprint" title="Semantyczną, osobistą platformę publikacyjną">
-					Dumnie wspierane przez WordPressa				</a>
+												<a href="http://flask.pocoo.org/" class="imprint" title="Microframework webowy">
+					Zbudowane na frameworku Flask				</a>
 			</div>
 	</footer><!-- #colophon -->
 </div><!-- #page -->
@@ -266,8 +265,8 @@ var ctcc_vars = {"expiry":"30","method":"1","version":"1"};
 /* ]]> */
 </script>
 <script type='text/javascript' src='http://pgxc.pl/wp-content/plugins/uk-cookie-consent/assets/js/uk-cookie-consent-js.js?ver=2.3.0' id='cookie-consent-js'></script>
-<script type='text/javascript' src='http://pgxc.pl/wp-includes/js/wp-embed.min.js?ver=5.5.3' id='wp-embed-js'></script>
-			
+	<script type='text/javascript' src="{{ url_for('static',filename='js/wp-embed.min.5.5.3.js') }}" id='wp-embed-js'></script>
+
 				<script type="text/javascript">
 					jQuery(document).ready(function($){
 												if(!catapultReadCookie("catAccCookies")){ // If the cookie has not been set then show the bar

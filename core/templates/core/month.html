@@ -1,0 +1,44 @@
+{% extends 'core/base.html' %}
+
+{% block content %}
+
+{% for post in posts.items %}
+
+					
+<article id="post-{{ post.id }}" class="post-{{ post.id }} post type-post status-publish format-standard hentry category-aktualnosci category-leonardoxc tag-best-of-the-best tag-loty-holowane tag-ranking">
+		<header class="entry-header">
+			<h1 class="entry-title"><a href="{{ url_for('core_bp.post',year=post.created.year,month=post.created.month,slug=post.slug) }}" rel="bookmark">{{ post.title }}</a></h1>
+			
+						<div class="entry-meta">
+							<span class="sep">Opublikowany </span><a href="{{ url_for('core_bp.post',year=post.created.year,month=post.created.month,slug=post.slug) }}" title="11:42 am" rel="bookmark"><time class="entry-date" datetime="{{ post.created }}+00:00">29 października, 2020</time></a><span class="by-author"> <span class="sep"> przez </span> <span class="author vcard"><a class="url fn n" href="http://pgxc.pl/author/rgrubba/" title="Zobacz wszystkie wpisy, których autorem jest rgrubba" rel="author">rgrubba</a></span></span>			</div><!-- .entry-meta -->
+			
+						<div class="comments-link">
+							<a href="{{ url_for('core_bp.post',year=post.created.year,month=post.created.month,slug=post.slug) }}#respond"><span class="leave-reply">Odpowiedz</span></a>			</div>
+					</header><!-- .entry-header -->
+					
+					{{ post.content |safe }}
+
+					<!-- .entry-content -->
+		
+		<footer class="entry-meta">
+			
+										<span class="cat-links">
+					<span class="entry-utility-prep entry-utility-prep-cat-links">Zaszufladkowano do kategorii</span> <a href="http://pgxc.pl/category/aktualnosci/" rel="category tag">Aktualności</a>, <a href="http://pgxc.pl/category/leonardoxc/" rel="category tag">LeonardoXC</a>			</span>
+							
+										<span class="sep"> | </span>
+								<span class="tag-links">
+					<span class="entry-utility-prep entry-utility-prep-tag-links">Otagowano</span> <a href="http://pgxc.pl/tag/best-of-the-best/" rel="tag">best of the best</a>, <a href="http://pgxc.pl/tag/loty-holowane/" rel="tag">loty holowane</a>, <a href="http://pgxc.pl/tag/ranking/" rel="tag">ranking</a>			</span>
+							
+										<span class="sep"> | </span>
+										<span class="comments-link"><a href="{{ url_for('core_bp.post',year=post.created.year,month=post.created.month,slug=post.slug) }}#respond"><span class="leave-reply">Dodaj komentarz</span></a></span>
+			
+					</footer><!-- .entry-meta -->
+	</article><!-- #post-{{ post.id }} -->
+{% endfor %}
+
+<nav id="nav-below">
+	<h3 class="assistive-text">Zobacz wpisy</h3>
+	{% if posts.has_prev %} <div class="nav-previous"><a href="{{ url_for('core_bp.month',page=posts.prev_num,year=year,month=month) }}" ><span class="meta-nav">&larr;</span> Nowsze wpisy</a></div> {% endif %}
+	{% if posts.has_next %} <div class="nav-next"> <a href="{{ url_for('core_bp.month',page=posts.next_num,year=year,month=month) }}" >Starsze wpisy <span class="meta-nav">&rarr;</span></a> </div> {% endif %}
+</nav><!-- #nav-above -->
+{% endblock %}
