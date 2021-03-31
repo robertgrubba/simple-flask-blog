@@ -6,4 +6,10 @@
 
 {% block content %}
 {{ post.content|safe }}
+
+
+<footer class="entry-meta">
+	Kategorie: {% for cat in post.categories %} <a href="{{ url_for('core_bp.category',slug=cat.slug) }}" rel="category tag">{{ cat.name }}</a>, {% endfor %} Tagi: {% for tag in post.tags %}<a href="{{ url_for('core_bp.tag',slug=tag.slug) }}" rel="tag">{{ tag.name }}</a>,{% endfor %}. Autor: <a href="http://pgxc.pl/author/rgrubba/">rgrubba</a>. Dodaj zakładkę do <a href="http://pgxc.pl{{ request.path }}" title="Bezpośredni odnośnik do &#8222;Ponadczasowy Paralotniowy Ranking Lotów Holowanych&#8221;" rel="bookmark">bezpośredniego odnośnika</a>.
+		
+			</footer><!-- .entry-meta -->
 {% endblock %}

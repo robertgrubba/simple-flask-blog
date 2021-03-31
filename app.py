@@ -24,6 +24,13 @@ def month_name(month_number):
     }
     return miesiace[month_number]
 
+@app.template_filter('show_all_attrs')
+def show_all_attrs(value):
+    res = []
+    for k in dir(value):
+        res.append('%r %r\n' % (k, getattr(value, k)))
+    return '\n'.join(res)
+
 db = SQLAlchemy(app)
 from models import Page, Tag, Category
 migrate = Migrate(app,db)

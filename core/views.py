@@ -13,26 +13,29 @@ def index(page=1):
     posts = Page.query.order_by(Page.created.desc()).paginate(page,per_page,error_out=False)
     recent_posts = Page.query.order_by(Page.created.desc()).limit(5)
     archives = Page.query.group_by(extract('year',Page.created),extract('month',Page.created)).order_by(Page.created.desc()).all()
+    categories = Category.query.all()
     referer = "index"
-    return render_template('core/index.html',posts=posts,recent_posts=recent_posts,archives=archives, ref=referer)
+    return render_template('core/index.html',posts=posts,recent_posts=recent_posts,archives=archives,categories=categories, ref=referer)
 
-@core_bp.route('/category/<string:cat>/')
-@core_bp.route('/category/<string:cat>/<int:page>')
-def category(cat,page=1):
+@core_bp.route('/category/<string:slug>/')
+@core_bp.route('/category/<string:slug>/<int:page>')
+def category(slug,page=1):
     per_page=5
-    posts = Page.query.join(Category.pages).filter(Category.slug==cat.replace(' ','-').lower()).paginate(page,per_page,error_out=False)
+    posts = Page.query.join(Category.pages).filter(Category.slug==slug).order_by(Page.created.desc()).paginate(page,per_page,error_out=False)
     recent_posts = Page.query.order_by(Page.created.desc()).limit(5)
     archives = Page.query.group_by(extract('year',Page.created),extract('month',Page.created)).order_by(Page.created.desc()).all()
-    return render_template('core/category.html',posts=posts,recent_posts=recent_posts,archives=archives,category=cat)
+    categories = Category.query.all()
+    return render_template('core/category.html',posts=posts,recent_posts=recent_posts,categories=categories,archives=archives,slug=slug)
 
-@core_bp.route('/tag/<string:tag>/')
-@core_bp.route('/tag/<string:tag>/<int:page>')
-def tag(tag,page=1):
+@core_bp.route('/tag/<string:slug>/')
+@core_bp.route('/tag/<string:slug>/<int:page>')
+def tag(slug,page=1):
     per_page=5
-    posts = Page.query.join(Tag.pages).filter(Tag.slug==tag.replace(' ','-').lower()).paginate(page,per_page,error_out=False)
+    posts = Page.query.join(Tag.pages).filter(Tag.slug==slug).order_by(Page.created.desc()).paginate(page,per_page,error_out=False)
     recent_posts = Page.query.order_by(Page.created.desc()).limit(5)
     archives = Page.query.group_by(extract('year',Page.created),extract('month',Page.created)).order_by(Page.created.desc()).all()
-    return render_template('core/tag.html',posts=posts,recent_posts=recent_posts,archives=archives,tag=tag)
+    categories = Category.query.all()
+    return render_template('core/tag.html',posts=posts,recent_posts=recent_posts,categories=categories,archives=archives,slug=slug)
 
 @core_bp.route('/<int:year>/<int:month>/<string:slug>/')
 def post(year,month,slug):

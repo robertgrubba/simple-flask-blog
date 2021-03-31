@@ -132,11 +132,6 @@ img.emoji {
 							<img src="{{ url_for('static',filename='cropped-header_pgxc.jpg') }}" width="1000" height="288" alt="PGXC.pl" />
 								</a>
 			
-									<form method="get" id="searchform" action="http://pgxc.pl/">
-		<label for="s" class="assistive-text">Szukaj</label>
-		<input type="text" class="field" name="s" id="s" placeholder="Szukaj" />
-		<input type="submit" class="submit" name="submit" id="searchsubmit" value="Szukaj" />
-	</form>
 			
 			<nav id="access" role="navigation">
 				<h3 class="assistive-text">Główne menu</h3>
@@ -171,10 +166,6 @@ img.emoji {
 
 	      {% block content %}{% endblock %}
 
-	<footer class="entry-meta">
-		Kategorie: <a href="http://pgxc.pl/category/aktualnosci/" rel="category tag">Aktualności</a>, <a href="http://pgxc.pl/category/leonardoxc/" rel="category tag">LeonardoXC</a>. Tagi: <a href="http://pgxc.pl/tag/best-of-the-best/" rel="tag">best of the best</a>, <a href="http://pgxc.pl/tag/loty-holowane/" rel="tag">loty holowane</a>, <a href="http://pgxc.pl/tag/ranking/" rel="tag">ranking</a>. Autor: <a href="http://pgxc.pl/author/rgrubba/">rgrubba</a>. Dodaj zakładkę do <a href="http://pgxc.pl{{ request.path }}" title="Bezpośredni odnośnik do &#8222;Ponadczasowy Paralotniowy Ranking Lotów Holowanych&#8221;" rel="bookmark">bezpośredniego odnośnika</a>.
-		
-			</footer><!-- .entry-meta -->
 			</article><!-- #post-{{ post.id }} -->
 
 
