@@ -1,5 +1,9 @@
 {% extends 'core/base.html' %}
 
+{% block header %}
+<header class="page-header"><h1 class="page-title">Miesięczne archiwum: <span>{{ posts.items[0].created.month|month_name }} {{posts.items[0].created.year }}</span></h1> </header>
+{% endblock %}
+
 {% block content %}
 
 {% for post in posts.items %}

@@ -1,5 +1,10 @@
 {% extends 'core/base.html' %}
 
+{% block header %}
+<header class="page-header"><h1 class="page-title">Archiwum kategorii: <span>{{ slug }}</span></h1> </header>
+{% endblock %}
+
+
 {% block content %}
 
 {% for post in posts.items %}
