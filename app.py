@@ -1,10 +1,13 @@
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
+from flask_admin import Admin
+from flask_admin.contrib.sqla import ModelView
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///app.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+app.config['FLASK_ADMIN_SWATCH'] = 'cerulean'
 
 @app.template_filter('month_name')
 def month_name(month_number):
@@ -34,6 +37,12 @@ def show_all_attrs(value):
 db = SQLAlchemy(app)
 from models import Page, Tag, Category
 migrate = Migrate(app,db)
+
+admin = Admin(app, name='Panel Administracyjny', template_mode='bootstrap4')
+admin.add_view(ModelView(Page,db.session))
+admin.add_view(ModelView(Category,db.session))
+admin.add_view(ModelView(Tag,db.session))
+
 
 from core.views import core_bp
 app.register_blueprint(core_bp)

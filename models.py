@@ -13,7 +13,7 @@ class Tag(db.Model):
     slug = db.Column(db.String(255),unique=True)
 
     def __repr__(self):
-        return '<Tag %r>' % self.id
+        return '<Tag %r>' % self.name
 
 class Page(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -26,7 +26,7 @@ class Page(db.Model):
     categories = db.relationship('Category', secondary=categories, lazy='subquery', backref=db.backref('pages', lazy=True))
 
     def __repr__(self):
-        return '<Page %r>' % self.id
+        return '<Page %r>' % self.slug
 
 class Category(db.Model):
     id = db.Column(db.Integer,primary_key=True)
@@ -34,7 +34,7 @@ class Category(db.Model):
     slug = db.Column(db.String(255),unique=True)
 
     def __repr__(self):
-        return '<Cagegory %r>' % self.id
+        return '<Cagegory %r>' % self.name
 
 
 
