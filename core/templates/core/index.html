@@ -1,5 +1,5 @@
 {% extends 'core/base.html' %}
-
+{% from 'core/_helpers.html' import display_archives,display_recent_posts,display_categories %} 
 {% block content %}
 
 {% for post in posts.items %}
@@ -50,39 +50,13 @@
 {% endblock %}
 
 {% block recent_posts %}
-<h3 class="widget-title">Najnowsze wpisy</h3>
-<ul>
-	{% for post in recent_posts %}
-		<li><a href="{{ url_for('core_bp.post',year=post.created.year,month=post.created.month,slug=post.slug) }}">{{ post.title }}</a></li>
-	{% endfor %}
-</ul>
+{{ display_recent_posts(recent_posts) }}
 {% endblock %}
 
 {% block archives %}
-<h3 class="widget-title">Archiwa</h3>
-			<ul>
-	{% for post in archives %}
-	<li><a href='{{ url_for('core_bp.month',year=post.created.year,month=post.created.month) }}'>{{ post.created.month |month_name }} / {{ post.created.year }}</a></li>
-	{% endfor %}
-	</ul>
-
+{{ display_archives(archives) }}
 {% endblock %}
 
 {% block categories %}
-<ul>
-	{% for category in categories %}
-		<li class="cat-item cat-item-2"><a href="{{ url_for('core_bp.category',slug=category.slug) }}"> {{ category.name }}</a>
-	{% endfor %}
-</ul>
-
-			</aside><aside id="meta-2" class="widget widget_meta"><h3 class="widget-title">Meta</h3>
-		<ul>
-						<li><a rel="nofollow" href="http://pgxc.pl/wp-login.php">Zaloguj się</a></li>
-			<li><a href="http://pgxc.pl/feed/">Kanał wpisów</a></li>
-			<li><a href="http://pgxc.pl/comments/feed/">Kanał komentarzy</a></li>
-
-			<li><a href="https://pl.wordpress.org/">WordPress.org</a></li>
-		</ul>
-
-
+{{ display_categories(categories) }}
 {% endblock %}

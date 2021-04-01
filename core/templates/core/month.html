@@ -1,4 +1,5 @@
 {% extends 'core/base.html' %}
+{% from 'core/_helpers.html' import display_archives,display_recent_posts,display_categories %} 
 
 {% block header %}
 <header class="page-header"><h1 class="page-title">Miesięczne archiwum: <span>{{ posts.items[0].created.month|month_name }} {{posts.items[0].created.year }}</span></h1> </header>
@@ -25,13 +26,13 @@
 					<!-- .entry-content -->
 		
 		<footer class="entry-meta">
-			
-										<span class="cat-links">
-					<span class="entry-utility-prep entry-utility-prep-cat-links">Zaszufladkowano do kategorii</span> <a href="http://pgxc.pl/category/aktualnosci/" rel="category tag">Aktualności</a>, <a href="http://pgxc.pl/category/leonardoxc/" rel="category tag">LeonardoXC</a>			</span>
+	
+		<span class="cat-links">
+			<span class="entry-utility-prep entry-utility-prep-cat-links">Zaszufladkowano do kategorii</span> {% for cat in post.categories %}<a href="{{ url_for('core_bp.category',slug=cat.slug) }}" rel="category tag">{{ cat.name }}</a>, {% endfor %}	</span>
 							
 										<span class="sep"> | </span>
-								<span class="tag-links">
-					<span class="entry-utility-prep entry-utility-prep-tag-links">Otagowano</span> <a href="http://pgxc.pl/tag/best-of-the-best/" rel="tag">best of the best</a>, <a href="http://pgxc.pl/tag/loty-holowane/" rel="tag">loty holowane</a>, <a href="http://pgxc.pl/tag/ranking/" rel="tag">ranking</a>			</span>
+		<span class="tag-links">
+			<span class="entry-utility-prep entry-utility-prep-tag-links">Otagowano</span> {% for tag in post.tags %} <a href="{{ url_for('core_bp.tag',slug=tag.slug) }}" rel="tag">{{ tag.name }}</a>,{% endfor %}</span>
 							
 										<span class="sep"> | </span>
 										<span class="comments-link"><a href="{{ url_for('core_bp.post',year=post.created.year,month=post.created.month,slug=post.slug) }}#respond"><span class="leave-reply">Dodaj komentarz</span></a></span>
@@ -45,4 +46,16 @@
 	{% if posts.has_prev %} <div class="nav-previous"><a href="{{ url_for('core_bp.month',page=posts.prev_num,year=year,month=month) }}" ><span class="meta-nav">&larr;</span> Nowsze wpisy</a></div> {% endif %}
 	{% if posts.has_next %} <div class="nav-next"> <a href="{{ url_for('core_bp.month',page=posts.next_num,year=year,month=month) }}" >Starsze wpisy <span class="meta-nav">&rarr;</span></a> </div> {% endif %}
 </nav><!-- #nav-above -->
+{% endblock %}
+
+{% block recent_posts %}
+{{ display_recent_posts(recent_posts) }}
+{% endblock %}
+
+{% block archives %}
+{{ display_archives(archives) }}
+{% endblock %}
+
+{% block categories %}
+{{ display_categories(categories) }}
 {% endblock %}
