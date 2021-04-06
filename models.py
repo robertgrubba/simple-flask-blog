@@ -1,4 +1,5 @@
 import datetime
+from flask_security import current_user, Security, SQLAlchemyUserDatastore, UserMixin
 from app import db
 from sqlalchemy.sql import func
 
@@ -36,5 +37,20 @@ class Category(db.Model):
     def __repr__(self):
         return '<Cagegory %r>' % self.name
 
+roles_users_table = db.Table('roles_users',
+                            db.Column('users_id', db.Integer(), db.ForeignKey('users.id')),
+                            db.Column('roles_id', db.Integer(), db.ForeignKey('roles.id')))
 
+class Roles(db.Model):
+    id = db.Column(db.Integer(), primary_key=True)
+    name = db.Column(db.String(80), unique=True)
+    description = db.Column(db.String(255))
+
+class Users(db.Model, UserMixin):
+    id = db.Column(db.Integer(), primary_key=True)
+    email = db.Column(db.String(255), unique=True)
+    password = db.Column(db.String(80))
+    active = db.Column(db.Boolean())
+
+    roles = db.relationship('Roles', secondary=roles_users_table, backref='user', lazy=True)
 
