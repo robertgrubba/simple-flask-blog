@@ -93,6 +93,7 @@ class UserModelView(ModelView):
 
 # Add administrative views to Flask-Admin
 admin.add_view(UserModelView(Users, db.session))
+admin.add_view(UserModelView(Roles, db.session))
 admin.add_view(UserModelView(Page,db.session))
 admin.add_view(UserModelView(Category,db.session))
 admin.add_view(UserModelView(Tag,db.session))
