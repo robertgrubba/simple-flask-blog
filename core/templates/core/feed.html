@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"
+	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	xmlns:wfw="http://wellformedweb.org/CommentAPI/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:atom="http://www.w3.org/2005/Atom"
+	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+	xmlns:slash="http://purl.org/rss/1.0/modules/slash/"
+	>
+
+<channel>
+	<title>Aktualności &#8211; pgxc.pl</title>
+	<atom:link href="http://pgxc.pl/category/{{ slug }}/feed/" rel="self" type="application/rss+xml" />
+	<link>https://pgxc.pl</link>
+	<description>Polski Serwer LeonardoXC</description>
+	<lastBuildDate>{{ pages[1].created | xmltime }}+0000</lastBuildDate>
+	<language>pl-PL</language>
+	<sy:updatePeriod>daily</sy:updatePeriod>
+	<sy:updateFrequency>1	</sy:updateFrequency>
+	<generator>Simple Flask Blog</generator>
+	{% for page in pages %}
+		<item>
+			<title>{{ page.title }}</title>
+			<link>http://pgxc.pl/{{ page.created.year }}/{{ page.created.month }}/{{ page.slug }}</link>
+		
+			<dc:creator><![CDATA[Robert Grubba]]></dc:creator>
+			<pubDate>{{ page.created |xmltime }}+0000</pubDate>
+			{% for category in page.categories %}
+				<category><![CDATA[{{ category.name }}]]></category>
+			{% endfor %}	
+				<guid isPermaLink="false">http://pgxc.pl/p/{{ page.id }}</guid>
+
+				<description><![CDATA[ {{ page.content | striptags | truncate(255, True) }}]]></description>
+			<content:encoded> {{ page.content |safe }}
+			</content:encoded>
+		</item>
+	{% endfor %}
+</channel>
+</rss>

@@ -3,6 +3,7 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 from flask_admin import Admin
 from flask_admin.contrib.sqla import ModelView
+import dateutil.parser
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///app.db'
@@ -33,6 +34,13 @@ def show_all_attrs(value):
     for k in dir(value):
         res.append('%r %r\n' % (k, getattr(value, k)))
     return '\n'.join(res)
+
+@app.template_filter('xmltime')
+def xmltime(date, fmt=None):
+    date = dateutil.parser.parse(str(date))
+    native = date.replace(tzinfo=None)
+    format='%a, %d %b %Y %H:%M:%S %z'
+    return native.strftime(format) 
 
 db = SQLAlchemy(app)
 from models import Page, Tag, Category

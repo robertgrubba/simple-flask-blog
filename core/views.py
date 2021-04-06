@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template
+from flask import Blueprint, render_template, make_response
 from models import Page,Category,Tag
 from sqlalchemy import extract
 from bs4 import BeautifulSoup
@@ -61,3 +61,11 @@ def post_by_id(postid):
         return render_template('core/post.html',post=requested_post,date=datetime.datetime.strftime(requested_post.created, "%d %B %Y"),short=BeautifulSoup(requested_post.content,"html.parser").text.lstrip().rstrip()[0:52])
     else:
         return render_template('index.html')
+
+@core_bp.route('/category/<string:slug>/feed/')
+def feed(slug):
+    pages = Page.query.order_by(Page.created.desc()).limit(10)
+    template = render_template('core/feed.html',pages=pages,slug=slug)
+    response = make_response(template)
+    response.headers['Content-Type'] = 'application/xml'
+    return response
