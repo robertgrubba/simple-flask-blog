@@ -91,10 +91,23 @@ class UserModelView(ModelView):
 
 #    column_list = ['email', 'password']
 
+class PostEditView(ModelView):
+
+    def is_accessible(self):
+        return (current_user.is_active and
+                current_user.is_authenticated)
+
+    def _handle_view(self, name):
+        if not self.is_accessible():
+            return redirect(url_for('security.login'))
+
+    extra_js = ['//cdn.ckeditor.com/4.6.0/standard/ckeditor.js']
+    form_widget_args = dict(content={'class': 'form-control ckeditor'})
+
 # Add administrative views to Flask-Admin
 admin.add_view(UserModelView(Users, db.session))
 admin.add_view(UserModelView(Roles, db.session))
-admin.add_view(UserModelView(Page,db.session))
+admin.add_view(PostEditView(Page,db.session))
 admin.add_view(UserModelView(Category,db.session))
 admin.add_view(UserModelView(Tag,db.session))
 
