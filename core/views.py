@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, make_response
+from flask import Blueprint, render_template, make_response, send_from_directory, url_for, redirect
 from models import Page,Category,Tag
 from sqlalchemy import extract
 from bs4 import BeautifulSoup
@@ -69,3 +69,16 @@ def feed(slug):
     response = make_response(template)
     response.headers['Content-Type'] = 'application/xml'
     return response
+
+
+@core_bp.route('/raport_klifowy.pdf')
+def raport_klifowy():
+    return redirect(url_for('static',filename='raport_klifowy.pdf'))
+
+@core_bp.route('/raport_sudety.pdf')
+def raport_klifowy():
+    return redirect(url_for('static',filename='raport_sudety.pdf'))
+
+@core_bp.route('/raport_beskidwyspowy.pdf')
+def raport_klifowy():
+    return redirect(url_for('static',filename='raport_beskidwyspowy.pdf'))
