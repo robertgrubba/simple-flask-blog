@@ -103,6 +103,7 @@ class PostEditView(ModelView):
 
     extra_js = ['//cdn.ckeditor.com/4.6.0/standard/ckeditor.js']
     form_widget_args = dict(content={'class': 'form-control ckeditor'})
+    column_exclude_list = ['content','modified']
 
 # Add administrative views to Flask-Admin
 admin.add_view(UserModelView(Users, db.session))
@@ -121,6 +122,7 @@ def security_context_processor():
         get_url = url_for,
         h = admin_helpers
     )
+
 
 from core.views import core_bp
 app.register_blueprint(core_bp)

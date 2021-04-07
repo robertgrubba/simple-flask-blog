@@ -1,4 +1,4 @@
-
+{% from 'core/_helpers.html' import display_menu %}
 <!DOCTYPE html>
 <!--[if IE 6]>
 <html id="ie6" lang="pl-PL">
@@ -128,11 +128,8 @@ img.emoji {
 			
 			<nav id="access" role="navigation">
 				<h3 class="assistive-text">Główne menu</h3>
-				<div class="menu-menu-1-container"><ul id="menu-menu-1" class="menu"><li id="menu-item-46" class="menu-item menu-item-type-custom menu-item-object-custom current-menu-item current_page_item menu-item-home menu-item-46"><a href="{{ url_for('core_bp.index') }}" aria-current="page">Strona główna</a></li>
-<li id="menu-item-48" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-48"><a href="http://pgxc.pl/klifowy-raport-pogodowy/">Klifowy raport pogodowy</a></li>
-<li id="menu-item-275" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-275"><a href="http://pgxc.pl/sudety-raport-pogodowy/">Sudety &#8211; raport pogodowy</a></li>
-<li id="menu-item-49" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-49"><a href="http://leonardo.pgxc.pl">Polski Serwer LeonardoXC &#8211; leonardo.pgxc.pl</a></li>
-</ul></div>			</nav><!-- #access -->
+				{{ display_menu() }}
+			</nav><!-- #access -->
 	</header><!-- #branding -->
 
 

@@ -37,6 +37,14 @@ def tag(slug,page=1):
     categories = Category.query.all()
     return render_template('core/tag.html',posts=posts,recent_posts=recent_posts,categories=categories,archives=archives,slug=slug)
 
+@core_bp.route('/<string:slug>/')
+def page(slug):
+    requested_post = Page.query.filter_by(slug=slug).first_or_404()
+    if post:
+        return render_template('core/post.html',post=requested_post,date=datetime.datetime.strftime(requested_post.created, "%d %B %Y"),short=BeautifulSoup(requested_post.content,"html.parser").text.lstrip().rstrip()[0:52])
+    else:
+        return render_template('index.html')
+
 @core_bp.route('/<int:year>/<int:month>/<string:slug>/')
 def post(year,month,slug):
     requested_post = Page.query.filter(extract('year',Page.created)==year,extract('month',Page.created)==month).filter_by(slug=slug).first_or_404()
@@ -76,9 +84,9 @@ def raport_klifowy():
     return redirect(url_for('static',filename='raport_klifowy.pdf'))
 
 @core_bp.route('/raport_sudety.pdf')
-def raport_klifowy():
+def raport_sudety():
     return redirect(url_for('static',filename='raport_sudety.pdf'))
 
 @core_bp.route('/raport_beskidwyspowy.pdf')
-def raport_klifowy():
+def raport_beskid_wyspowy():
     return redirect(url_for('static',filename='raport_beskidwyspowy.pdf'))
