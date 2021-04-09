@@ -71,9 +71,17 @@ def post_by_id(postid):
         return render_template('index.html')
 
 @core_bp.route('/category/<string:slug>/feed/')
-def feed(slug):
+def category_feed(slug):
     pages = Page.query.order_by(Page.created.desc()).limit(10)
     template = render_template('core/feed.html',pages=pages,slug=slug)
+    response = make_response(template)
+    response.headers['Content-Type'] = 'application/xml'
+    return response
+
+@core_bp.route('/feed/')
+def main_feed():
+    pages = Page.query.order_by(Page.created.desc()).limit(20)
+    template = render_template('core/feed.html',pages=pages)
     response = make_response(template)
     response.headers['Content-Type'] = 'application/xml'
     return response
