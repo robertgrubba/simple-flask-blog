@@ -58,6 +58,11 @@ def xmltime(date, fmt=None):
     format='%a, %d %b %Y %H:%M:%S %z'
     return native.strftime(format) 
 
+@app.template_filter('startswith')
+def starts_with(field):
+    if field.startswith('<div class="entry-content">'):
+            return True
+    return False
 
 db = SQLAlchemy(app)
 from models import Page, Tag, Category,Roles, Users
