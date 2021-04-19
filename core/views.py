@@ -10,9 +10,9 @@ core_bp = Blueprint('core_bp',__name__,template_folder='templates')
 @core_bp.route('/page/<int:page>')
 def index(page=1):
     per_page=5
-    posts = Page.query.order_by(Page.created.desc()).paginate(page,per_page,error_out=False)
-    recent_posts = Page.query.order_by(Page.created.desc()).limit(5)
-    archives = Page.query.group_by(extract('year',Page.created),extract('month',Page.created)).order_by(Page.created.desc()).all()
+    posts = Page.query.filter_by(published=True).order_by(Page.created.desc()).paginate(page,per_page,error_out=False)
+    recent_posts = Page.query.filter_by(published=True).order_by(Page.created.desc()).limit(5)
+    archives = Page.query.filter_by(published=True).group_by(extract('year',Page.created),extract('month',Page.created)).order_by(Page.created.desc()).all()
     categories = Category.query.all()
     referer = "index"
     return render_template('core/index.html',posts=posts,recent_posts=recent_posts,archives=archives,categories=categories, ref=referer)
@@ -21,9 +21,9 @@ def index(page=1):
 @core_bp.route('/category/<string:slug>/<int:page>')
 def category(slug,page=1):
     per_page=5
-    posts = Page.query.join(Category.pages).filter(Category.slug==slug).order_by(Page.created.desc()).paginate(page,per_page,error_out=False)
-    recent_posts = Page.query.order_by(Page.created.desc()).limit(5)
-    archives = Page.query.group_by(extract('year',Page.created),extract('month',Page.created)).order_by(Page.created.desc()).all()
+    posts = Page.query.join(Category.pages).filter(Category.slug==slug,Page.published==True).order_by(Page.created.desc()).paginate(page,per_page,error_out=False)
+    recent_posts = Page.query.filter_by(published=True).order_by(Page.created.desc()).limit(5)
+    archives = Page.query.filter_by(published=True).group_by(extract('year',Page.created),extract('month',Page.created)).order_by(Page.created.desc()).all()
     categories = Category.query.all()
     return render_template('core/category.html',posts=posts,recent_posts=recent_posts,categories=categories,archives=archives,slug=slug)
 
@@ -31,15 +31,15 @@ def category(slug,page=1):
 @core_bp.route('/tag/<string:slug>/<int:page>')
 def tag(slug,page=1):
     per_page=5
-    posts = Page.query.join(Tag.pages).filter(Tag.slug==slug).order_by(Page.created.desc()).paginate(page,per_page,error_out=False)
-    recent_posts = Page.query.order_by(Page.created.desc()).limit(5)
-    archives = Page.query.group_by(extract('year',Page.created),extract('month',Page.created)).order_by(Page.created.desc()).all()
+    posts = Page.query.join(Tag.pages).filter(Tag.slug==slug,Page.published==True).order_by(Page.created.desc()).paginate(page,per_page,error_out=False)
+    recent_posts = Page.query.filter_by(published=True).order_by(Page.created.desc()).limit(5)
+    archives = Page.query.filter_by(published=True).group_by(extract('year',Page.created),extract('month',Page.created)).order_by(Page.created.desc()).all()
     categories = Category.query.all()
     return render_template('core/tag.html',posts=posts,recent_posts=recent_posts,categories=categories,archives=archives,slug=slug)
 
 @core_bp.route('/<string:slug>/')
 def page(slug):
-    requested_post = Page.query.filter_by(slug=slug).first_or_404()
+    requested_post = Page.query.filter_by(slug=slug,published=True).first_or_404()
     if post:
         return render_template('core/post.html',post=requested_post,date=datetime.datetime.strftime(requested_post.created, "%d %B %Y"),short=BeautifulSoup(requested_post.content,"html.parser").text.lstrip().rstrip()[0:52])
     else:
@@ -47,7 +47,7 @@ def page(slug):
 
 @core_bp.route('/<int:year>/<int:month>/<string:slug>/')
 def post(year,month,slug):
-    requested_post = Page.query.filter(extract('year',Page.created)==year,extract('month',Page.created)==month).filter_by(slug=slug).first_or_404()
+    requested_post = Page.query.filter(extract('year',Page.created)==year,extract('month',Page.created)==month).filter_by(slug=slug,published=True).first_or_404()
     if post:
         return render_template('core/post.html',post=requested_post,date=datetime.datetime.strftime(requested_post.created, "%d %B %Y"),short=BeautifulSoup(requested_post.content,"html.parser").text.lstrip().rstrip()[0:52])
     else:
@@ -56,7 +56,7 @@ def post(year,month,slug):
 @core_bp.route('/<int:year>/<int:month>/')
 def month(year,month,page=1):
     per_page=5
-    posts = Page.query.filter(extract('year',Page.created)==year,extract('month',Page.created)==month).order_by(Page.created.desc()).paginate(page,per_page,error_out=False)
+    posts = Page.query.filter(extract('year',Page.created)==year,extract('month',Page.created)==month).filter_by(published=True).order_by(Page.created.desc()).paginate(page,per_page,error_out=False)
     if posts:
         return render_template('core/month.html',posts=posts,year=year,month=month)
     else:
@@ -64,7 +64,7 @@ def month(year,month,page=1):
 
 @core_bp.route('/p/<int:postid>/')
 def post_by_id(postid):
-    requested_post = Page.query.filter_by(id=postid).first_or_404()
+    requested_post = Page.query.filter_by(id=postid,published=True).first_or_404()
     if post:
         return render_template('core/post.html',post=requested_post,date=datetime.datetime.strftime(requested_post.created, "%d %B %Y"),short=BeautifulSoup(requested_post.content,"html.parser").text.lstrip().rstrip()[0:52])
     else:
@@ -72,7 +72,9 @@ def post_by_id(postid):
 
 @core_bp.route('/category/<string:slug>/feed/')
 def category_feed(slug):
-    pages = Page.query.order_by(Page.created.desc()).limit(10)
+    pages = Page.query.filter_by(published=True).order_by(Page.created.desc()).limit(10)
+    for page in pages:
+        page.content = page.content.replace('&oacute;','ó').replace('&ndash;',' ').replace('&nbsp;',' ')
     template = render_template('core/feed.html',pages=pages,slug=slug)
     response = make_response(template)
     response.headers['Content-Type'] = 'application/xml'
@@ -80,7 +82,9 @@ def category_feed(slug):
 
 @core_bp.route('/feed/')
 def main_feed():
-    pages = Page.query.order_by(Page.created.desc()).limit(20)
+    pages = Page.query.filter_by(published=True).order_by(Page.created.desc()).limit(20)
+    for page in pages:
+        page.content = page.content.replace('&oacute;','ó').replace('&ndash;',' ').replace('&nbsp;',' ')
     template = render_template('core/feed.html',pages=pages)
     response = make_response(template)
     response.headers['Content-Type'] = 'application/xml'

@@ -25,6 +25,7 @@ class Page(db.Model):
     modified = db.Column(db.DateTime,onupdate=func.now())
     tags = db.relationship('Tag', secondary=tags, lazy='subquery', backref=db.backref('pages', lazy=True))
     categories = db.relationship('Category', secondary=categories, lazy='subquery', backref=db.backref('pages', lazy=True))
+    published = db.Column(db.Boolean(),default=True)
 
     def __repr__(self):
         return '<Page %r>' % self.slug
