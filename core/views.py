@@ -104,5 +104,5 @@ def raport_beskid_wyspowy():
     return redirect(url_for('static',filename='raport_beskidwyspowy.pdf'))
 
 @core_bp.route('/weather_forecast.pdf')
-def raport_beskid_wyspowy():
+def raport_all():
     return redirect(url_for('static',filename='weather_forecast.pdf'))
