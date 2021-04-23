@@ -102,3 +102,7 @@ def raport_sudety():
 @core_bp.route('/raport_beskidwyspowy.pdf')
 def raport_beskid_wyspowy():
     return redirect(url_for('static',filename='raport_beskidwyspowy.pdf'))
+
+@core_bp.route('/weather_forecast.pdf')
+def raport_beskid_wyspowy():
+    return redirect(url_for('static',filename='weather_forecast.pdf'))
