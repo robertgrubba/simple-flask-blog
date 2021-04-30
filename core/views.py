@@ -72,7 +72,7 @@ def post_by_id(postid):
 
 @core_bp.route('/category/<string:slug>/feed/')
 def category_feed(slug):
-    pages = Page.query.filter_by(published=True).order_by(Page.created.desc()).limit(10)
+    pages = Page.query.join(Category.pages).filter(Page.published==True,Category.slug==slug).order_by(Page.created.desc()).limit(10)
     for page in pages:
         page.content = page.content.replace('&oacute;','ó').replace('&ndash;',' ').replace('&nbsp;',' ')
     template = render_template('core/feed.html',pages=pages,slug=slug)
