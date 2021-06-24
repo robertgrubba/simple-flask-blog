@@ -40,8 +40,11 @@ def tag(slug,page=1):
 @core_bp.route('/<string:slug>/')
 def page(slug):
     requested_post = Page.query.filter_by(slug=slug,published=True).first_or_404()
+    recent_posts = Page.query.filter_by(published=True).order_by(Page.created.desc()).limit(5)
+    archives = Page.query.filter_by(published=True).group_by(extract('year',Page.created),extract('month',Page.created)).order_by(Page.created.desc()).all()
+    categories = Category.query.all()
     if post:
-        return render_template('core/post.html',post=requested_post,date=datetime.datetime.strftime(requested_post.created, "%d %B %Y"),short=BeautifulSoup(requested_post.content,"html.parser").text.lstrip().rstrip()[0:52])
+        return render_template('core/post.html',post=requested_post,date=datetime.datetime.strftime(requested_post.created, "%d %B %Y"),short=BeautifulSoup(requested_post.content,"html.parser").text.lstrip().rstrip()[0:52],recent_posts=recent_posts,categories=categories,archives=archives)
     else:
         return render_template('index.html')
 
@@ -57,8 +60,11 @@ def post(year,month,slug):
 def month(year,month,page=1):
     per_page=5
     posts = Page.query.filter(extract('year',Page.created)==year,extract('month',Page.created)==month).filter_by(published=True).order_by(Page.created.desc()).paginate(page,per_page,error_out=False)
+    recent_posts = Page.query.filter_by(published=True).order_by(Page.created.desc()).limit(5)
+    archives = Page.query.filter_by(published=True).group_by(extract('year',Page.created),extract('month',Page.created)).order_by(Page.created.desc()).all()
+    categories = Category.query.all()
     if posts:
-        return render_template('core/month.html',posts=posts,year=year,month=month)
+        return render_template('core/month.html',posts=posts,year=year,month=month,recent_posts=recent_posts,categories=categories,archives=archives)
     else:
         return render_template('index.html')
 
