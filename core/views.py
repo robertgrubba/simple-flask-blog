@@ -42,17 +42,21 @@ def page(slug):
     requested_post = Page.query.filter_by(slug=slug,published=True).first_or_404()
     recent_posts = Page.query.filter_by(published=True).order_by(Page.created.desc()).limit(5)
     archives = Page.query.filter_by(published=True).group_by(extract('year',Page.created),extract('month',Page.created)).order_by(Page.created.desc()).all()
+    prev_post = Page.query.filter_by(published=True,id=requested_post.id-1).first()
+    next_post = Page.query.filter_by(published=True,id=requested_post.id+1).first()
     categories = Category.query.all()
     if post:
-        return render_template('core/post.html',post=requested_post,date=datetime.datetime.strftime(requested_post.created, "%d %B %Y"),short=BeautifulSoup(requested_post.content,"html.parser").text.lstrip().rstrip()[0:52],recent_posts=recent_posts,categories=categories,archives=archives)
+        return render_template('core/post.html',prev=prev_post,next=next_post,post=requested_post,date=datetime.datetime.strftime(requested_post.created, "%d %B %Y"),short=BeautifulSoup(requested_post.content,"html.parser").text.lstrip().rstrip()[0:52],recent_posts=recent_posts,categories=categories,archives=archives)
     else:
         return render_template('index.html')
 
 @core_bp.route('/<int:year>/<int:month>/<string:slug>/')
 def post(year,month,slug):
     requested_post = Page.query.filter(extract('year',Page.created)==year,extract('month',Page.created)==month).filter_by(slug=slug,published=True).first_or_404()
+    prev_post = Page.query.filter_by(published=True,id=requested_post.id-1).first()
+    next_post = Page.query.filter_by(published=True,id=requested_post.id+1).first()
     if post:
-        return render_template('core/post.html',post=requested_post,date=datetime.datetime.strftime(requested_post.created, "%d %B %Y"),short=BeautifulSoup(requested_post.content,"html.parser").text.lstrip().rstrip()[0:52])
+        return render_template('core/post.html',prev=prev_post,next=next_post,post=requested_post,date=datetime.datetime.strftime(requested_post.created, "%d %B %Y"),short=BeautifulSoup(requested_post.content,"html.parser").text.lstrip().rstrip()[0:52])
     else:
         return render_template('index.html')
 
@@ -71,8 +75,10 @@ def month(year,month,page=1):
 @core_bp.route('/p/<int:postid>/')
 def post_by_id(postid):
     requested_post = Page.query.filter_by(id=postid,published=True).first_or_404()
+    prev_post = Page.query.filter_by(published=True,id=requested_post.id-1).first()
+    next_post = Page.query.filter_by(published=True,id=requested_post.id+1).first()
     if post:
-        return render_template('core/post.html',post=requested_post,date=datetime.datetime.strftime(requested_post.created, "%d %B %Y"),short=BeautifulSoup(requested_post.content,"html.parser").text.lstrip().rstrip()[0:52])
+        return render_template('core/post.html',prev=prev_post,next=next_post,post=requested_post,date=datetime.datetime.strftime(requested_post.created, "%d %B %Y"),short=BeautifulSoup(requested_post.content,"html.parser").text.lstrip().rstrip()[0:52])
     else:
         return render_template('index.html')
 

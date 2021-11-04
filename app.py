@@ -94,6 +94,7 @@ class UserModelView(ModelView):
         if not self.is_accessible():
             return redirect(url_for('security.login'))
 
+    column_default_sort = [('id', True)]
 #    column_list = ['email', 'password']
 
 class PostEditView(ModelView):
@@ -106,7 +107,7 @@ class PostEditView(ModelView):
         if not self.is_accessible():
             return redirect(url_for('security.login'))
 
-    extra_js = ['//cdn.ckeditor.com/4.6.0/standard/ckeditor.js']
+    extra_js = ['//cdn.ckeditor.com/4.6.0/full/ckeditor.js']
     form_widget_args = dict(content={'class': 'form-control ckeditor'})
     column_exclude_list = ['content','modified']
 

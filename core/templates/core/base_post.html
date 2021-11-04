@@ -143,10 +143,16 @@ img.emoji {
 			<div id="content" role="main">
 
 				
-					<nav id="nav-single">
+					<nav id="nav-double">
 						<h3 class="assistive-text">Zobacz wpisy</h3>
-						<span class="nav-previous"><a href="#" rel="prev"><span class="meta-nav">&larr;</span> Wstecz</a></span>
-						<span class="nav-next"></span>
+						<br>
+
+						{% if prev.title |safe %}
+						<span class="nav-previous" rel="prev"><a href="{{ url_for('core_bp.post',slug=prev.slug,month=prev.created.month,year=prev.created.year)}}"><span class="meta-nav">&larr;</span> {{ prev.title |safe }}</a></span>
+						{% endif %}
+						{% if next.title |safe %}
+						<span class="nav-next" rel="prev"><a href="{{ url_for('core_bp.post',slug=next.slug,month=next.created.month,year=next.created.year)}}">{{ next.title |safe }} <span class="meta-nav">&rarr;</span></a></span>
+						{% endif %}
 					</nav><!-- #nav-single -->
 
 					
